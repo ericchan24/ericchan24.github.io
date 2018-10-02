@@ -1,0 +1,19 @@
+<nav>
+  <a href="/">
+    {% if site.data.theme.social.gravatar %}
+    <img src="http://www.gravatar.com/avatar/{{ site.data.theme.social.gravatar }}?s=200" id="gravatar" alt="My photo"/>
+    {% else %}
+    <img src="/profile.jpg" width="150" id="profile" alt="profile pic"/>
+    {% endif %}
+  </a>
+  <h2>{{ site.data.theme.name }}
+  <br>
+  <!-- <p><font size="4" face="arial" color="gray">
+      Data Scientist</font> -->
+  <h5>{{ site.data.theme.email}} 
+  <div id="bio">
+  </div>
+  <div id="social">
+    {% include social.html %}
+  </div>
+</nav>

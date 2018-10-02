@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>The blog of Eric Chan</title>
+ <link href="http://localhost:4000/atom.xml" rel="self"/>
+ <link href="http://localhost:4000"/>
+ <updated>2018-10-02T16:41:57-05:00</updated>
+ <id>http://localhost:4000</id>
+ <author>
+   <name>Eric Chan</name>
+   <email>echan@clarityinsights.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>Time Series Forecasting in R</title>
+   <link href="http://localhost:4000/time_series/forecasting/2018/10/02/18-Time-Series-Forecasting-in-R/"/>
+   <updated>2018-10-02T00:00:00-05:00</updated>
+   <id>http://localhost:4000/time_series/forecasting/2018/10/02/18-Time-Series-Forecasting-in-R</id>
+   <content type="html">&lt;head&gt;
+&lt;style&gt;
+.wrap {
+    width: 300px;
+    position: relative;
+}
+
+.wrap img {
+    float: left;
+    height: 20px;
+}
+
+.wrap h2 {
+    line-height: 20px;
+    &lt;!-- top: 33px;
+    left: 50px; --&gt;
+    &lt;!-- display: inline; --&gt;
+}
+tr.dark {
+    background-color: #141866;
+    color: #ffffff;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;h2 id=&quot;introduction-world-bank-data--malaysia-gni&quot;&gt;Introduction: World Bank Data &amp;#38; Malaysia GNI&lt;/h2&gt;
+&lt;p&gt;This is a tutorial on how to create a time series forecast using R.&lt;/p&gt;
+
+&lt;p&gt;A time series forecast predicts future values of a variable based on past
+variables. I will predict future values of GNI (Gross National Income) based
+ past values.&lt;/p&gt;
+
+&lt;p&gt;I used economic data from the &lt;a href=&quot;https://data.worldbank.org/&quot;&gt;World Bank&lt;/a&gt; to
+build my forecast. I chose Malaysia as the country to forecast.&lt;/p&gt;
+
+&lt;div class=&quot;wrap&quot;&gt;
+&lt;h2&gt;&amp;#160;Malaysia GNI &lt;img src=&quot;\assets\img\10 October\02\malaysia_flag.png&quot; alt=&quot;malaysia flag&quot; /&gt;&lt;/h2&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;step-0-examine-the-data&quot;&gt;Step 0: Examine the data&lt;/h2&gt;
+
+&lt;h2 id=&quot;step-1-create-a-naive-model-as-a-baseline&quot;&gt;Step 1: Create a naive model as a baseline&lt;/h2&gt;
+&lt;p&gt;I’ll build a baseline model to compare to assess the performance of my model.&lt;/p&gt;
+
+&lt;p&gt;A naive model predicts that this year’s GNI is last year’s GNI.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# create model &amp;amp; get predictions
+fcast &amp;lt;- naive(y_train, h = num_test)
+y_pred &amp;lt;- fcast$mean
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let’s plot this model to visualize how well it predicts GNI.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gni &amp;lt;- df$GNI
+# plotting prep
+ylim &amp;lt;- c(min(gni) * .9, max(gni) * 1.1)
+xlab &amp;lt;- 'Year'
+ylab &amp;lt;- 'GNI'
+main &amp;lt;- 'Malaysia GNI Actual VS Forecast'
+location = 'bottomright'
+legend = c('train', 'test', 'forecast')
+col = c('black', 'blue', 'red')
+lty = 1
+cex = 0.8
+# plot actual vs forecast  
+plot(df$Year, y1, type = 'l', col = 'black', main = main,
+    xlab = xlab, ylab = ylab, ylim = ylim)
+lines(df$Year, y2, type = 'l', col = 'blue')
+lines(df$Year, y3, type = 'l', col = 'red')
+legend(location, col = col, legend = legend, lty = lty, cex = cex)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;\assets\img\10 October\02\naive_graph.PNG&quot; alt=&quot;Naive Model&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The naive model’s last training observation was in 2008. After 2008, it
+forecasts that Malaysia will have the same GNI that it had in 2008.&lt;/p&gt;
+
+&lt;h2 id=&quot;step-2-calculate-mape-for-naive-model&quot;&gt;Step 2: Calculate MAPE for naive model&lt;/h2&gt;
+&lt;p&gt;To quantify the model, I’ll calculate MAPE (mean absolute percent error) of the
+forecast.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# create data frame with actual and predicted values
+mape_naive_df &amp;lt;- data.frame('Actual' = y_test, 'Predicted' = y_pred)
+mape_naive_df['error'] &amp;lt;-  mape_naive_df['Actual'] - mape_naive_df['Predicted']
+mape_naive_df['abs_pct_error'] &amp;lt;- abs(mape_naive_df['error'] / mape_naive_df['Actual'])
+mape_naive &amp;lt;- mean(mape_naive_df[, 'abs_pct_error']) * 100
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Naive Model MAPE: 9.04%&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;step-3-create-an-arima-model&quot;&gt;Step 3: Create an ARIMA model&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# create ARIMA model &amp;amp; generate predictions  
+arima_fit &amp;lt;- auto.arima(y_train)
+fcast &amp;lt;- forecast(arima_fit, h = num_test)  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Plot the ARIMA model’s predictions to visual how well it predicts GNI.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# plot preparation
+y_pred &amp;lt;- fcast$mean
+y3 &amp;lt;- append(rep(NA, num_train), y_pred)
+# plot actual vs forecast  
+plot(df$Year, y1, type = 'l', col = 'black', main = main,
+     xlab = xlab, ylab = ylab, ylim = ylim)
+lines(df$Year, y2, type = 'l', col = 'blue')
+lines(df$Year, y3, type = 'l', col = 'red')
+legend(location, col = col, legend = legend, lty = lty, cex = cex)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets\img\10 October\02\arima_graph.PNG&quot; alt=&quot;ARIMA graph&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;step-4-calculate-mape-for-arima-model&quot;&gt;Step 4: Calculate MAPE for ARIMA model&lt;/h2&gt;
+&lt;p&gt;I’ll calculate the MAPE for the ARIMA model and compare it with the naive
+model.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;arima_df &amp;lt;- data.frame('Actual' = y_test, 'Predicted' = y_pred)
+arima_df['error'] &amp;lt;-  arima_df['Actual'] - arima_df['Predicted']
+arima_df['abs_pct_error'] &amp;lt;- abs(arima_df['error'] / arima_df['Actual'])
+mape_arima_df &amp;lt;- mean(arima_df[, 'abs_pct_error']) * 100
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;ARIMA model MAPE: 3.01%&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;step-5-compare-model-performance&quot;&gt;Step 5: Compare model performance&lt;/h2&gt;
+&lt;p&gt;The ARIMA model outperformed the naive model.&lt;/p&gt;
+&lt;table&gt;
+  &lt;tr class=&quot;dark&quot;&gt;
+    &lt;th&gt;model&lt;/th&gt;
+    &lt;th&gt;MAPE&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;naive&lt;/th&gt;
+    &lt;th&gt;9.04%&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th&gt;ARIMA&lt;/th&gt;
+    &lt;th&gt;3.01%&lt;/th&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</content>
+ </entry>
+ 
+ 
+</feed>
