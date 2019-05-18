@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eric Chan - Classifying Animals Using Machine Learning</title>
+  <meta name="author" content="Eric Chan" />
+  <meta name="description" content="The blog of Eric Chan" />
+  <link rel="canonical" href="http://localhost:4000/classification/random%20forrest/2019/05/15/Classifying-Animals-Using-Machine-Learning/" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Eric Chan" href="http://localhost:4000/atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+
+    <div class="four columns sidebar">
+      <nav>
+  <a href="/">
+    
+    <img src="/profile.jpg" width="150" id="profile" alt="profile pic"/>
+    
+  </a>
+  <h2>Eric Chan
+  <br>
+  <!-- <p><font size="4" face="arial" color="gray">
+      Data Scientist</font> -->
+  <h5>eric.chan.24@gmail.com 
+  <div id="bio">
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a title="ericchan24 on Github" href="https://github.com/ericchan24">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Eric Chan on LinkedIn" href="https://www.linkedin.com/in/ericchan24/">
+    <i class="fa fa-linkedin-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <div class="navigation">
+        <!-- Belongs at: /_includes/navigation.html -->
+
+<!-- This finds the current page so it can be highlighted. -->
+
+
+
+
+    
+        
+    
+
+
+<!-- Then we build the nav bar. -->
+<nav>
+    <ul>
+    
+        
+            
+        
+        
+        
+        <li class="current"><a href="/">Home</a></li>
+        
+    
+    </ul>
+</nav>
+
+      </div>
+
+
+      <p class="meta">
+  May 15, 2019
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Classifying Animals Using Machine Learning</h1>
+
+<div id="post">
+  <head>
+<style>
+.wrap {
+    width: 300px;
+    position: relative;
+}
+
+.wrap img {
+    float: left;
+    height: 20px;
+}
+
+.wrap h2 {
+    line-height: 20px;
+    <!-- top: 33px;
+    left: 50px; -->
+    <!-- display: inline; -->
+}
+tr.dark {
+    background-color: #141866;
+    color: #ffffff;
+}
+</style>
+</head>
+
+<h2 id="introduction">Introduction</h2>
+<p><img src="\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\mini_highland_cow.png" alt="Mini Highland Cow" width="650px" /></p>
+
+<p>This is a mini highland cow. From the image, we see that it has hair, a tail,
+and four legs. Some other things that we know about this animal is that it has
+teeth and it produces milk.</p>
+
+<p>The mini highland cow’s attributes are what are called the features of the
+animal. The class it belongs to is the mammal class. My goal is to develop a
+model that maps from the features of an animal to its class.</p>
+
+<h2 id="the-data">The Data</h2>
+
+<p>The Data
+I used a data set from the <a href="http://archive.ics.uci.edu/ml/datasets/zoo" target="_blank">UCI Machine Learning repository</a>.</p>
+
+<p><img src="\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\animal_classes.png" alt="Animal Classes" width="650px" /></p>
+
+<p>The animals are divided into seven classes. A particularly interesting class is
+the non-insect invertebrate class. It includes are a variety of animals from
+worms, arachnids, crustaceans, mollusks, and others.</p>
+
+<p><img src="\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\number_of_animals_by_class.PNG" alt="Number of Animals by Class" width="650px" /></p>
+
+<p>There are 101 animals in the data set. There were only five reptiles and four
+amphibians. This is important to keep in mind during the splitting of the data.
+I want at least one example of reptile and amphibian in my testing data.</p>
+
+<h2 id="data-exploration-preprocessing-and-cleaning">Data exploration, preprocessing, and cleaning</h2>
+<p>This is a clean data set with no missing values or outliers. The only non-binary feature was the number of legs of each animal. I scaled the number of legs to values between 0 and 1 using a max-min scaler.</p>
+
+<h2 id="modeling">Modeling</h2>
+<p>There are many algorithms to choose for classification. There is a rule of thumb for logistic regression requiring ten training observations per feature to have properly calibrated model probabilities. I decided to not use logistic regression. Naive Bayes has the assumption that the features used are independent. Since I had features such as “Does this animal have fins” and “Does this animal live in the water”, my features were not independent. I decided not to use naive bayes.</p>
+
+<p>I built four models and compared the results.</p>
+
+<p><img src="\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\four_model_accuracy_barh.PNG" alt="Four Model Accuracy" width="650px" /></p>
+
+<p>These models were built without any tuning of hyperparameters. Random forest
+and decision tree were producing high accuracy and moved forward with these
+algorithms.</p>
+
+<p>I used randomized grid search to tune the hyperparameters for a decision tree
+and random forest model. Random forest produced the best results.</p>
+
+<p><img src="\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\confusion_matrix_random_forest.PNG" alt="Confusion Matrix Random Forest" width="650px" /></p>
+
+<p>The random forest model correctly classified every observation in the test set.</p>
+
+<p>Conclusion
+I made a model that maps from animal features to the class of that animal using
+random forest. The model was trained on 81 observations and tested on 20
+observation. It had 100% accuracy on the test set.</p>
+
+<p>I made an <a href="https://animal-classifier.herokuapp.com/" target="_blank">interactive app</a> that shows how the model works.</p>
+
+<p>The code for this project can be found on my <a href="https://github.com/ericchan24/Animal-Classification" target="_blank">Github</a>.</p>
+
+</div>
+
+<!-- <div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+  </ul>
+</div> -->
+
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+
+  <p>
+    © Eric Chan, 2019 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>
