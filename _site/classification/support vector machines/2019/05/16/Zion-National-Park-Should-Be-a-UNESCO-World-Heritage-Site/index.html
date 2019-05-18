@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eric Chan - Zion National Park Should be a UNESCO World Heritage Site</title>
+  <meta name="author" content="Eric Chan" />
+  <meta name="description" content="The blog of Eric Chan" />
+  <link rel="canonical" href="http://localhost:4000/classification/support%20vector%20machines/2019/05/16/Zion-National-Park-Should-Be-a-UNESCO-World-Heritage-Site/" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Eric Chan" href="http://localhost:4000/atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+
+    <div class="four columns sidebar">
+      <nav>
+  <a href="/">
+    
+    <img src="/profile.jpg" width="150" id="profile" alt="profile pic"/>
+    
+  </a>
+  <h2>Eric Chan
+  <br>
+  <!-- <p><font size="4" face="arial" color="gray">
+      Data Scientist</font> -->
+  <h5>eric.chan.24@gmail.com 
+  <div id="bio">
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a title="ericchan24 on Github" href="https://github.com/ericchan24">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Eric Chan on LinkedIn" href="https://www.linkedin.com/in/ericchan24/">
+    <i class="fa fa-linkedin-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <div class="navigation">
+        <!-- Belongs at: /_includes/navigation.html -->
+
+<!-- This finds the current page so it can be highlighted. -->
+
+
+
+
+    
+        
+    
+
+
+<!-- Then we build the nav bar. -->
+<nav>
+    <ul>
+    
+        
+            
+        
+        
+        
+        <li class="current"><a href="/">Home</a></li>
+        
+    
+    </ul>
+</nav>
+
+      </div>
+
+
+      <p class="meta">
+  May 16, 2019
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Zion National Park Should be a UNESCO World Heritage Site</h1>
+
+<div id="post">
+  <p><img src="\assets\img\2019-05-May\2019-05-16-Zion-National-Park-Should-be-a-UNESCO-World-Heritage-Site\montage.png" alt="Montage" width="650px" /></p>
+<h2 id="introduction">Introduction</h2>
+<p>Zion National Park is a large and beautiful park in Utah. Millions of visitors visit annually to hike its scenic terrain. Why is Zion not on the list of UNESCO World Heritage Sites?</p>
+
+<h2 id="what-is-unesco">What is UNESCO?</h2>
+
+<p>UNESCO is an agency of the United Nations that promotes science, education, and culture. One of the ways they do this is with a list of World Heritage Sites. To make it on the list, a site must be judged of significance to the collective interests of humanity.</p>
+
+<p>I built a model using machine learning to classify whether a site would make it on the UNESCO list.</p>
+
+<h2 id="approach">Approach</h2>
+<p>UNESCO sites are divided into two types, one is cultural. These are man-made sites such as The Statue of Liberty or The Great Wall of China. The other type is natural. Natural sites are parks, marine areas, and landforms that exhibit outstanding examples plant and animal life. I focused on the natural sites, specifically the parks. The parks have more consistent features that can be used to build a model.</p>
+
+<h2 id="getting-the-data">Getting the Data</h2>
+<p>I gathered data from UNESCO, the US National Park Service, the Canadian National Park Service, and TripAdvisor for reviews about each park. The US and Canadian Park Service gave me observations of parks not on the UNESCO list.</p>
+
+<h2 id="features">Features</h2>
+<p>The features that I looked at were size of the park, age of the park, TripAdvisor review score and Number of TripAdvisor reviews. The number of reviews was important because some sites had a very high rating.</p>
+
+<p><img src="/assets/img/2019-05-May/2019-05-16-Zion-National-Park-Should-be-a-UNESCO-World-Heritage-Site/torngat_trip_advisor.PNG" alt="High Rating" width="650px" /></p>
+
+<p>But only one review.</p>
+
+<p><img src="/assets/img/2019-05-May/2019-05-16-Zion-National-Park-Should-be-a-UNESCO-World-Heritage-Site/torngat_trip_advisor1.PNG" alt="One Review" width="650px" /></p>
+
+<p>So I combined review score and number of reviews into a single metric “weighted reviews” that accounts for the number of reviews. This also serves as proxy as number of visitors to a park that is important in the model.</p>
+
+<h2 id="testing-out-machine-learning-algorithms">Testing out Machine Learning Algorithms</h2>
+<p>I used F1 score as my scoring metric. A baseline model that always predicts a park is a UNESCO site had an F1 score of 49%. I trained six different machine learning models with my data and here are the results:</p>
+
+<p><img src="/assets/img/2019-05-May/2019-05-16-Zion-National-Park-Should-be-a-UNESCO-World-Heritage-Site/f1_score_by_model.PNG" alt="F1 Scores by Model" width="650px" /></p>
+
+<p>A support vector machine (SVM) model was the best performer with a F1 score of 62%.</p>
+
+<h2 id="what-exactly-can-this-model-do">What Exactly Can This Model Do?</h2>
+<p>Given a set of park features, I can input them into the model will look at the data I used to train it and output a prediction whether a park is a UNESCO World Heritage Site.</p>
+
+<p><img src="/assets/img/2019-05-May/2019-05-16-Zion-National-Park-Should-be-a-UNESCO-World-Heritage-Site/prediction.png" alt="Prediction" width="650px" /></p>
+
+<p>The model predicts that Zion National Park should be classified as a UNESCO World Heritage Site.</p>
+
+<h2 id="going-forward">Going Forward</h2>
+<p>The model currently has a F1 score of 62% on 140 parks, 70 that were UNESCO sites and 70 that were non-UNESCO sites. I would like to add more parks from all around the world to see if I can increase the F1 score.</p>
+
+<p>With a strong enough score, the model would be used to find those parks that are not currently UNESCO sites that should be UNESCO sites.</p>
+
+<p>The code for the project can be found on my <a href="https://github.com/ericchan24/unesco_classification" target="_blank">GitHub</a>.</p>
+
+</div>
+
+<!-- <div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>15 May 2019 &raquo;</span> <a href="/classification/random%20forrest/2019/05/15/Classifying-Animals-Using-Machine-Learning/">Classifying Animals Using Machine Learning</a>
+    </li>
+    
+  </ul>
+</div> -->
+
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+
+  <p>
+    © Eric Chan, 2019 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

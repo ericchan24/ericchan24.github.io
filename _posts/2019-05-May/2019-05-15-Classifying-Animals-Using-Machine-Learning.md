@@ -81,8 +81,7 @@ The random forest model correctly classified every observation in the test set.
 
 Conclusion
 I made a model that maps from animal features to the class of that animal using
-random forest. The model was trained on 81 observations and tested on 20
-observation. It had 100% accuracy on the test set.
+random forest. The model was trained on 81 observations and tested on 20 observations. It had 100% accuracy on the test set.
 
 I made an [interactive app](https://animal-classifier.herokuapp.com/){:target="_blank"} that shows how the model works.
 

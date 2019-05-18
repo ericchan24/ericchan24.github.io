@@ -4,13 +4,68 @@
  <title>The blog of Eric Chan</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000"/>
- <updated>2019-05-18T08:09:08-05:00</updated>
+ <updated>2019-05-18T16:22:28-05:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Eric Chan</name>
    <email>eric.chan.24@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Zion National Park Should be a UNESCO World Heritage Site</title>
+   <link href="http://localhost:4000/classification/support%20vector%20machines/2019/05/16/Zion-National-Park-Should-Be-a-UNESCO-World-Heritage-Site/"/>
+   <updated>2019-05-16T00:00:00-05:00</updated>
+   <id>http://localhost:4000/classification/support%20vector%20machines/2019/05/16/Zion-National-Park-Should-Be-a-UNESCO-World-Heritage-Site</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;\assets\img\2019-05-May\2019-05-16-Zion-National-Park-Should-be-a-UNESCO-World-Heritage-Site\montage.png&quot; alt=&quot;Montage&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Zion National Park is a large and beautiful park in Utah. Millions of visitors visit annually to hike its scenic terrain. Why is Zion not on the list of UNESCO World Heritage Sites?&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-unesco&quot;&gt;What is UNESCO?&lt;/h2&gt;
+
+&lt;p&gt;UNESCO is an agency of the United Nations that promotes science, education, and culture. One of the ways they do this is with a list of World Heritage Sites. To make it on the list, a site must be judged of significance to the collective interests of humanity.&lt;/p&gt;
+
+&lt;p&gt;I built a model using machine learning to classify whether a site would make it on the UNESCO list.&lt;/p&gt;
+
+&lt;h2 id=&quot;approach&quot;&gt;Approach&lt;/h2&gt;
+&lt;p&gt;UNESCO sites are divided into two types, one is cultural. These are man-made sites such as The Statue of Liberty or The Great Wall of China. The other type is natural. Natural sites are parks, marine areas, and landforms that exhibit outstanding examples plant and animal life. I focused on the natural sites, specifically the parks. The parks have more consistent features that can be used to build a model.&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-the-data&quot;&gt;Getting the Data&lt;/h2&gt;
+&lt;p&gt;I gathered data from UNESCO, the US National Park Service, the Canadian National Park Service, and TripAdvisor for reviews about each park. The US and Canadian Park Service gave me observations of parks not on the UNESCO list.&lt;/p&gt;
+
+&lt;h2 id=&quot;features&quot;&gt;Features&lt;/h2&gt;
+&lt;p&gt;The features that I looked at were size of the park, age of the park, TripAdvisor review score and Number of TripAdvisor reviews. The number of reviews was important because some sites had a very high rating.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2019-05-May/2019-05-16-Zion-National-Park-Should-be-a-UNESCO-World-Heritage-Site/torngat_trip_advisor.PNG&quot; alt=&quot;High Rating&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;But only one review.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2019-05-May/2019-05-16-Zion-National-Park-Should-be-a-UNESCO-World-Heritage-Site/torngat_trip_advisor1.PNG&quot; alt=&quot;One Review&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So I combined review score and number of reviews into a single metric “weighted reviews” that accounts for the number of reviews. This also serves as proxy as number of visitors to a park that is important in the model.&lt;/p&gt;
+
+&lt;h2 id=&quot;testing-out-machine-learning-algorithms&quot;&gt;Testing out Machine Learning Algorithms&lt;/h2&gt;
+&lt;p&gt;I used F1 score as my scoring metric. A baseline model that always predicts a park is a UNESCO site had an F1 score of 49%. I trained six different machine learning models with my data and here are the results:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2019-05-May/2019-05-16-Zion-National-Park-Should-be-a-UNESCO-World-Heritage-Site/f1_score_by_model.PNG&quot; alt=&quot;F1 Scores by Model&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A support vector machine (SVM) model was the best performer with a F1 score of 62%.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-exactly-can-this-model-do&quot;&gt;What Exactly Can This Model Do?&lt;/h2&gt;
+&lt;p&gt;Given a set of park features, I can input them into the model will look at the data I used to train it and output a prediction whether a park is a UNESCO World Heritage Site.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2019-05-May/2019-05-16-Zion-National-Park-Should-be-a-UNESCO-World-Heritage-Site/prediction.png&quot; alt=&quot;Prediction&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The model predicts that Zion National Park should be classified as a UNESCO World Heritage Site.&lt;/p&gt;
+
+&lt;h2 id=&quot;going-forward&quot;&gt;Going Forward&lt;/h2&gt;
+&lt;p&gt;The model currently has a F1 score of 62% on 140 parks, 70 that were UNESCO sites and 70 that were non-UNESCO sites. I would like to add more parks from all around the world to see if I can increase the F1 score.&lt;/p&gt;
+
+&lt;p&gt;With a strong enough score, the model would be used to find those parks that are not currently UNESCO sites that should be UNESCO sites.&lt;/p&gt;
+
+&lt;p&gt;The code for the project can be found on my &lt;a href=&quot;https://github.com/ericchan24/unesco_classification&quot; target=&quot;_blank&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Classifying Animals Using Machine Learning</title>
@@ -93,8 +148,7 @@ and random forest model. Random forest produced the best results.&lt;/p&gt;
 
 &lt;p&gt;Conclusion
 I made a model that maps from animal features to the class of that animal using
-random forest. The model was trained on 81 observations and tested on 20
-observation. It had 100% accuracy on the test set.&lt;/p&gt;
+random forest. The model was trained on 81 observations and tested on 20 observations. It had 100% accuracy on the test set.&lt;/p&gt;
 
 &lt;p&gt;I made an &lt;a href=&quot;https://animal-classifier.herokuapp.com/&quot; target=&quot;_blank&quot;&gt;interactive app&lt;/a&gt; that shows how the model works.&lt;/p&gt;
 
