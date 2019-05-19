@@ -4,7 +4,7 @@
  <title>The blog of Eric Chan</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000"/>
- <updated>2019-05-18T20:39:14-05:00</updated>
+ <updated>2019-05-18T20:53:19-05:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Eric Chan</name>
@@ -74,7 +74,7 @@ probability that an article is fake news given the words in the article?&lt;/p&g
 &lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
 &lt;p&gt;The classifier misclassified one out of 127 articles in the test set. It correctly classified all 27 fake news articles in the test set.&lt;/p&gt;
 
-&lt;p&gt;This is a &lt;a href=&quot;https://github.com/ericchan24/Fake-News-Classifier&quot; width=&quot;650px&quot;&gt;Github&lt;/a&gt; link with all the code used in this project.&lt;/p&gt;
+&lt;p&gt;This is a &lt;a href=&quot;https://github.com/ericchan24/Fake-News-Classifier&quot; target=&quot;_blank&quot;&gt;Github&lt;/a&gt; link with all the code used in this project.&lt;/p&gt;
 </content>
  </entry>
  
@@ -264,7 +264,7 @@ tr.dark {
 
 &lt;p&gt;I cleaned up the data and built my model. I used scikit-learn to perform a linear regression to calculate the coefficients for my model. Here are the results of my model.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/img/2019-05-May/2019-05-15-How-Expensive-is-Your-City/all_features.png&quot; alt=&quot;All Features Model Results&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/img/2019-05-May/2019-05-14-How-Expensive-is-Your-City/all_features.png&quot; alt=&quot;All Features Model Results&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;I reverse engineered the website’s model. I was able to perfectly predict a city’s price index!&lt;/p&gt;
 
@@ -275,7 +275,7 @@ tr.dark {
 &lt;p&gt;I was skeptical whether a new model using only seven items would be very predictive. I noticed that rent was highly correlated to price index and I built a test model using only this single feature. It turns out that rent by itself is highly predictive of price index! From here, I added the price of fast food, the price of a monthly bus pass, and the region in which the city was located as my final model.&lt;/p&gt;
 
 &lt;p&gt;Here are the results of my final model:
-&lt;img src=&quot;/assets/img/2019-05-May/2019-05-15-How-Expensive-is-Your-City/final_predictions.png&quot; alt=&quot;Final Model&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;/assets/img/2019-05-May/2019-05-14-How-Expensive-is-Your-City/final_predictions.png&quot; alt=&quot;Final Model&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;chicago-vs-south-bend&quot;&gt;Chicago vs South Bend&lt;/h2&gt;
 &lt;p&gt;Here’s an example of the model in action. I’ll calculate the price indices for Chicago and compare it to South Bend.&lt;/p&gt;

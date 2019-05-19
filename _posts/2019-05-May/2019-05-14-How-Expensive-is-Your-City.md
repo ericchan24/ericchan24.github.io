@@ -41,7 +41,7 @@ In order train my model, I needed to get data. I used Python's BeautifulSoup lib
 
 I cleaned up the data and built my model. I used scikit-learn to perform a linear regression to calculate the coefficients for my model. Here are the results of my model.
 
-![All Features Model Results](/assets/img/2019-05-May/2019-05-15-How-Expensive-is-Your-City/all_features.png){:width='650px'}
+![All Features Model Results](/assets/img/2019-05-May/2019-05-14-How-Expensive-is-Your-City/all_features.png){:width='650px'}
 
 I reverse engineered the website's model. I was able to perfectly predict a city's price index!
 
@@ -52,7 +52,7 @@ I was left with only six items: gasoline, rental housing, fast food, public tran
 I was skeptical whether a new model using only seven items would be very predictive. I noticed that rent was highly correlated to price index and I built a test model using only this single feature. It turns out that rent by itself is highly predictive of price index! From here, I added the price of fast food, the price of a monthly bus pass, and the region in which the city was located as my final model.
 
 Here are the results of my final model:
-![Final Model](/assets/img/2019-05-May/2019-05-15-How-Expensive-is-Your-City/final_predictions.png){:width='650px'}
+![Final Model](/assets/img/2019-05-May/2019-05-14-How-Expensive-is-Your-City/final_predictions.png){:width='650px'}
 
 ## Chicago vs South Bend
 Here's an example of the model in action. I'll calculate the price indices for Chicago and compare it to South Bend.
