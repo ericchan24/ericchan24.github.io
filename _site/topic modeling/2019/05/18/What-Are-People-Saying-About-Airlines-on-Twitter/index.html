@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eric Chan - What Are People Saying About Airlines on Twitter?</title>
+  <meta name="author" content="Eric Chan" />
+  <meta name="description" content="The blog of Eric Chan" />
+  <link rel="canonical" href="http://localhost:4000/topic%20modeling/2019/05/18/What-Are-People-Saying-About-Airlines-on-Twitter/" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Eric Chan" href="http://localhost:4000/atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+
+    <div class="four columns sidebar">
+      <nav>
+  <a href="/">
+    
+    <img src="/profile.jpg" width="150" id="profile" alt="profile pic"/>
+    
+  </a>
+  <h2>Eric Chan
+  <br>
+  <!-- <p><font size="4" face="arial" color="gray">
+      Data Scientist</font> -->
+  <h5>eric.chan.24@gmail.com 
+  <div id="bio">
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a title="ericchan24 on Github" href="https://github.com/ericchan24">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Eric Chan on LinkedIn" href="https://www.linkedin.com/in/ericchan24/">
+    <i class="fa fa-linkedin-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <div class="navigation">
+        <!-- Belongs at: /_includes/navigation.html -->
+
+<!-- This finds the current page so it can be highlighted. -->
+
+
+
+
+    
+        
+    
+
+
+<!-- Then we build the nav bar. -->
+<nav>
+    <ul>
+    
+        
+            
+        
+        
+        
+        <li class="current"><a href="/">Home</a></li>
+        
+    
+    </ul>
+</nav>
+
+      </div>
+
+
+      <p class="meta">
+  May 18, 2019
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">What Are People Saying About Airlines on Twitter?</h1>
+
+<div id="post">
+  <p><img src="/assets/img/2019-05-May/2019-05-18-What-Are-People-Saying-About-Airlines-on-Twitter/thumbnails.png" alt="Thumbnails" width="650px" /></p>
+
+<h2 id="introduction-and-goal">Introduction and Goal</h2>
+<p>Given tweets that mention an airline company, can we understand what people are saying about that company and their experiences with them? I pulled two weeks worth of tweets mentioning airlines for analysis using machine learning Natural Language Processing (NLP) techniques.</p>
+
+<p>The final goal is a list of topics that people are tweeting about. This is an unsupervised learning problem because we don’t have labels for the topics we are finding, nor do we even know the number of topics to look for. These are things that will be determined during the modeling process.</p>
+
+<h2 id="modeling-process-and-pipeline">Modeling Process and Pipeline</h2>
+<p>Let me guide you through my process in going from tens of thousands of tweets to a list of topics. First I cleaned my tweets. Twitter data is messy and filled with non-standard English words. There are slang, misspellings, abbreviations, hashtags, Twitter handles, links, emojis, and other things that make it difficult to analyze. A thorough cleaning is imperative.</p>
+
+<p>I made my own custom cleaning function to handle Twitter specific issues like correcting common misspellings, slang, eliminating emojis, Twitter handles etc. . .</p>
+
+<p style="float: left; font-size: 9pt; text-align: center; width: 99%;
+margin-right: 1%; margin-bottom: 0.5em;">
+<img src="/assets/img/2019-05-May/2019-05-18-What-Are-People-Saying-About-Airlines-on-Twitter/raw_tweet.png" style="width: 100%" />
+Raw tweet, words with red squares will be cleaned</p>
+
+<p style="float: left; font-size: 9pt; text-align: center; width: 99%;
+margin-right: 1%; margin-bottom: 0.5em;">
+<img src="/assets/img/2019-05-May/2019-05-18-What-Are-People-Saying-About-Airlines-on-Twitter/cleaned_tweet.png" style="width: 100%" />
+After the first iteration of cleaning the tweet</p>
+
+<p>This is the first of many iterations in the cleaning process. From here I would convert all words to lower case, remove “$” symbols, remove numbers, and other things to make tweets easier for a computer to work with.</p>
+
+<p>Next I took the cleaned tweets and converted them to a numerical format.</p>
+
+<p><img src="/assets/img/2019-05-May/2019-05-18-What-Are-People-Saying-About-Airlines-on-Twitter/count_vectorizer.png" alt="Count Vectorizer" width="650px" /></p>
+
+<p>Each row is a tweet and the words in the tweet would be tallied in the corresponding columns.</p>
+
+<p>After counting, I had a really, really long list of words and counts. I had a matrix that was</p>
+
+<p>61711 rows x 24583 columns</p>
+
+<p>The rows represent the number of tweets, the columns represent the number of unique words. How do we work with this data?</p>
+
+<p>We need to do dimensionality reduction. I like to think of dimensionality reduction as taking a lot of data that doesn’t mean much on its own and compressing it down such that the compressed data conveys much more information. Take movies for example. There are tens of thousands of movies, each one having its own unique features. We can go from a space where we think about every movie individually to one where we think in genres. Suddenly, we go from tens of thousands of movies to 30 genres.</p>
+
+<p>Similarly with words, we can take tens of thousands of words and compress them into “topics.”</p>
+
+<p>It turns out, it is much easier to analyze tweets in this reduced dimension “topic” space. In the new “topic” space, I can group our tweets into clusters.</p>
+
+<p>After clustering, I examine the tweets in each cluster and try to understand the “topic” of the cluster and if it makes sense.</p>
+
+<p>This process is repeated until the topics make sense. It is an iterative process. There is no right answer or score.</p>
+
+<p><img src="/assets/img/2019-05-May/2019-05-18-What-Are-People-Saying-About-Airlines-on-Twitter/workflow.png" alt="Workflow" width="650px" /></p>
+
+<p>Above is the flow chart for working the project. Start at the upper left. The process is iterative, which means it is repeated until the data scientist is satisfied with the results.</p>
+
+<h2 id="summary-and-app">Summary and App</h2>
+<p>One particularly interesting topic that I found was topic number 9 which was about racism. On October 25, American Airlines was flagged for racist policies. There were a huge spike in tweets directed towards them from angry tweeters. However, the controversy quickly died down and the angry tweets returned to normal within a few days.</p>
+
+<p>Another notable topic was topic number 3 which was about love of flying. It showed people’s enthusiasm for traveling and their positive experiences with airlines. Topic number 7 is a topic nearly every traveler is familiar with: waiting at the gate, worrying about time, and flight delays.</p>
+
+<p>Here is a link to an <a href="https://airline-tweets.herokuapp.com/" target="_blank">Interactive App</a> that summarizes my results.</p>
+
+<p>The code for the project can be found on my <a href="https://github.com/ericchan24/airline_twitter" target="_blank">Github</a>.</p>
+
+</div>
+
+<!-- <div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>17 May 2019 &raquo;</span> <a href="/classification/naive%20bayes/2019/05/17/Predicting-Fake-News-With-99-percent-Accuracy/">Predicting Fake News With 99 Percent Accuracy</a>
+    </li>
+    
+    <li>
+      <span>16 May 2019 &raquo;</span> <a href="/classification/support%20vector%20machines/2019/05/16/Zion-National-Park-Should-Be-a-UNESCO-World-Heritage-Site/">Zion National Park Should be a UNESCO World Heritage Site</a>
+    </li>
+    
+    <li>
+      <span>15 May 2019 &raquo;</span> <a href="/classification/random%20forest/2019/05/15/Classifying-Animals-Using-Machine-Learning/">Classifying Animals Using Machine Learning</a>
+    </li>
+    
+  </ul>
+</div> -->
+
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+
+  <p>
+    © Eric Chan, 2019 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>
