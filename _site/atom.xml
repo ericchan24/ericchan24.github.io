@@ -4,7 +4,7 @@
  <title>The blog of Eric Chan</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000"/>
- <updated>2019-05-18T16:22:28-05:00</updated>
+ <updated>2019-05-18T19:52:55-05:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Eric Chan</name>
@@ -69,9 +69,9 @@
  
  <entry>
    <title>Classifying Animals Using Machine Learning</title>
-   <link href="http://localhost:4000/classification/random%20forrest/2019/05/15/Classifying-Animals-Using-Machine-Learning/"/>
+   <link href="http://localhost:4000/classification/random%20forest/2019/05/15/Classifying-Animals-Using-Machine-Learning/"/>
    <updated>2019-05-15T00:00:00-05:00</updated>
-   <id>http://localhost:4000/classification/random%20forrest/2019/05/15/Classifying-Animals-Using-Machine-Learning</id>
+   <id>http://localhost:4000/classification/random%20forest/2019/05/15/Classifying-Animals-Using-Machine-Learning</id>
    <content type="html">&lt;head&gt;
 &lt;style&gt;
 .wrap {
@@ -98,7 +98,7 @@ tr.dark {
 &lt;/head&gt;
 
 &lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\mini_highland_cow.png&quot; alt=&quot;Mini Highland Cow&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\mini_highland_cow.png&quot; alt=&quot;Mini Highland Cow&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This is a mini highland cow. From the image, we see that it has hair, a tail,
 and four legs. Some other things that we know about this animal is that it has
@@ -113,13 +113,13 @@ model that maps from the features of an animal to its class.&lt;/p&gt;
 &lt;p&gt;The Data
 I used a data set from the &lt;a href=&quot;http://archive.ics.uci.edu/ml/datasets/zoo&quot; target=&quot;_blank&quot;&gt;UCI Machine Learning repository&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\animal_classes.png&quot; alt=&quot;Animal Classes&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\animal_classes.png&quot; alt=&quot;Animal Classes&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The animals are divided into seven classes. A particularly interesting class is
 the non-insect invertebrate class. It includes are a variety of animals from
 worms, arachnids, crustaceans, mollusks, and others.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\number_of_animals_by_class.PNG&quot; alt=&quot;Number of Animals by Class&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\number_of_animals_by_class.PNG&quot; alt=&quot;Number of Animals by Class&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;There are 101 animals in the data set. There were only five reptiles and four
 amphibians. This is important to keep in mind during the splitting of the data.
@@ -133,7 +133,7 @@ I want at least one example of reptile and amphibian in my testing data.&lt;/p&g
 
 &lt;p&gt;I built four models and compared the results.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\four_model_accuracy_barh.PNG&quot; alt=&quot;Four Model Accuracy&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\four_model_accuracy_barh.PNG&quot; alt=&quot;Four Model Accuracy&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;These models were built without any tuning of hyperparameters. Random forest
 and decision tree were producing high accuracy and moved forward with these
@@ -142,7 +142,7 @@ algorithms.&lt;/p&gt;
 &lt;p&gt;I used randomized grid search to tune the hyperparameters for a decision tree
 and random forest model. Random forest produced the best results.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\confusion_matrix_random_forest.PNG&quot; alt=&quot;Confusion Matrix Random Forest&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\confusion_matrix_random_forest.PNG&quot; alt=&quot;Confusion Matrix Random Forest&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The random forest model correctly classified every observation in the test set.&lt;/p&gt;
 
@@ -153,6 +153,94 @@ random forest. The model was trained on 81 observations and tested on 20 observa
 &lt;p&gt;I made an &lt;a href=&quot;https://animal-classifier.herokuapp.com/&quot; target=&quot;_blank&quot;&gt;interactive app&lt;/a&gt; that shows how the model works.&lt;/p&gt;
 
 &lt;p&gt;The code for this project can be found on my &lt;a href=&quot;https://github.com/ericchan24/Animal-Classification&quot; target=&quot;_blank&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>How Expensive is Your City?</title>
+   <link href="http://localhost:4000/linear%20regression/2019/05/14/How-Expensive-is-Your-City/"/>
+   <updated>2019-05-14T00:00:00-05:00</updated>
+   <id>http://localhost:4000/linear%20regression/2019/05/14/How-Expensive-is-Your-City</id>
+   <content type="html">&lt;head&gt;
+&lt;style&gt;
+.wrap {
+    width: 300px;
+    position: relative;
+}
+
+.wrap img {
+    float: left;
+    height: 20px;
+}
+
+.wrap h2 {
+    line-height: 20px;
+    &lt;!-- top: 33px;
+    left: 50px; --&gt;
+    &lt;!-- display: inline; --&gt;
+}
+tr.dark {
+    background-color: #141866;
+    color: #ffffff;
+}
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Suppose you receive a job offer in a new city. Your new job will give you a raise by 10%. But will you be better off financially after moving to that city after taking into consideration its cost of living?&lt;/p&gt;
+
+&lt;p&gt;The website &lt;a href=&quot;https://www.expatistan.com/cost-of-living&quot; target=&quot;_blank&quot;&gt;Expatistan&lt;/a&gt; has information about prices from over 320 cities around the world. Each city has a list of over 50 items and their corresponding prices. The website takes those items and prices and gives us a value for the price index of each city.&lt;/p&gt;
+
+&lt;h2 id=&quot;objective&quot;&gt;Objective&lt;/h2&gt;
+&lt;p&gt;I decided to take the idea of this website and extend it by building a model to predict the cost of living index of any city in the world.&lt;/p&gt;
+
+&lt;p&gt;In order train my model, I needed to get data. I used Python’s BeautifulSoup library to build a web scraper, to scrape 320 individual city pages from Expatistan’s website. I extracted the item names and item prices from each page and loaded the data into a Pandas data frame.&lt;/p&gt;
+
+&lt;p&gt;I cleaned up the data and built my model. I used scikit-learn to perform a linear regression to calculate the coefficients for my model. Here are the results of my model.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2019-05-May/2019-05-15-How-Expensive-is-Your-City/all_features.png&quot; alt=&quot;All Features Model Results&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I reverse engineered the website’s model. I was able to perfectly predict a city’s price index!&lt;/p&gt;
+
+&lt;p&gt;However, my goal was to be able to use this model on all cities, not only the cities included on the website. The problem with this is that I need 50 prices of all sorts of items from in categories from food, housing, clothing, transportation, health, and entertainment. For some of these items would be nearly impossible to get their prices. There is no reliable to place to find the price of &lt;strong&gt;1 pair of men’s leather business shoes&lt;/strong&gt; or &lt;strong&gt;Short visit to private Doctor&lt;/strong&gt;. I went item-by-item and kept only the items for which I could easily find their prices.&lt;/p&gt;
+
+&lt;p&gt;I was left with only six items: gasoline, rental housing, fast food, public transportation, internet, and automobiles. I had to build a new model with the combination of these items. I also created a new feature called “region” that was based on the location of the city because I thought location would affect a city’s price index.&lt;/p&gt;
+
+&lt;p&gt;I was skeptical whether a new model using only seven items would be very predictive. I noticed that rent was highly correlated to price index and I built a test model using only this single feature. It turns out that rent by itself is highly predictive of price index! From here, I added the price of fast food, the price of a monthly bus pass, and the region in which the city was located as my final model.&lt;/p&gt;
+
+&lt;p&gt;Here are the results of my final model:
+&lt;img src=&quot;/assets/img/2019-05-May/2019-05-15-How-Expensive-is-Your-City/final_predictions.png&quot; alt=&quot;Final Model&quot; width=&quot;650px&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;chicago-vs-south-bend&quot;&gt;Chicago vs South Bend&lt;/h2&gt;
+&lt;p&gt;Here’s an example of the model in action. I’ll calculate the price indices for Chicago and compare it to South Bend.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# chicago
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Intercept&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;12.76&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Rent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2000&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.03&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Bus_ticket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;105&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.42&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Fast_Food&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;6.57&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Region&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;14.43&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cost_chi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Intercept&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Rent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Bus_ticket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Fast_Food&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Region&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cost_chi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;184&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# south bend
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Intercept_sb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;12.76&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Rent_sb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;900&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.03&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Bus_ticket_sb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;36&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.42&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Fast_Food_sb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;6.57&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Region_sb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;14.43&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cost_sb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Intercept_sb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Rent_sb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Bus_ticket_sb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Fast_Food_sb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Region_sb&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cost_sb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;109&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;cost_chi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost_sb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.688&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;My model calculates that Chicago’s cost of living is about 69% more expensive than South Bend’s.&lt;/p&gt;
+
+&lt;p&gt;The code for the project can be found on my &lt;a href=&quot;https://github.com/ericchan24/price_indices&quot; target=&quot;_blank&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here’s a link to some &lt;a href=&quot;https://price-indices.herokuapp.com/&quot; target=&quot;_blank&quot;&gt;visualizations&lt;/a&gt; that I made for this project.&lt;/p&gt;
 </content>
  </entry>
  

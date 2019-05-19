@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eric Chan - How Expensive is Your City?</title>
+  <meta name="author" content="Eric Chan" />
+  <meta name="description" content="The blog of Eric Chan" />
+  <link rel="canonical" href="http://localhost:4000/linear%20regression/2019/05/14/How-Expensive-is-Your-City/" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Eric Chan" href="http://localhost:4000/atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+
+    <div class="four columns sidebar">
+      <nav>
+  <a href="/">
+    
+    <img src="/profile.jpg" width="150" id="profile" alt="profile pic"/>
+    
+  </a>
+  <h2>Eric Chan
+  <br>
+  <!-- <p><font size="4" face="arial" color="gray">
+      Data Scientist</font> -->
+  <h5>eric.chan.24@gmail.com 
+  <div id="bio">
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a title="ericchan24 on Github" href="https://github.com/ericchan24">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Eric Chan on LinkedIn" href="https://www.linkedin.com/in/ericchan24/">
+    <i class="fa fa-linkedin-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <div class="navigation">
+        <!-- Belongs at: /_includes/navigation.html -->
+
+<!-- This finds the current page so it can be highlighted. -->
+
+
+
+
+    
+        
+    
+
+
+<!-- Then we build the nav bar. -->
+<nav>
+    <ul>
+    
+        
+            
+        
+        
+        
+        <li class="current"><a href="/">Home</a></li>
+        
+    
+    </ul>
+</nav>
+
+      </div>
+
+
+      <p class="meta">
+  May 14, 2019
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">How Expensive is Your City?</h1>
+
+<div id="post">
+  <head>
+<style>
+.wrap {
+    width: 300px;
+    position: relative;
+}
+
+.wrap img {
+    float: left;
+    height: 20px;
+}
+
+.wrap h2 {
+    line-height: 20px;
+    <!-- top: 33px;
+    left: 50px; -->
+    <!-- display: inline; -->
+}
+tr.dark {
+    background-color: #141866;
+    color: #ffffff;
+}
+</style>
+</head>
+
+<h2 id="introduction">Introduction</h2>
+<p>Suppose you receive a job offer in a new city. Your new job will give you a raise by 10%. But will you be better off financially after moving to that city after taking into consideration its cost of living?</p>
+
+<p>The website <a href="https://www.expatistan.com/cost-of-living" target="_blank">Expatistan</a> has information about prices from over 320 cities around the world. Each city has a list of over 50 items and their corresponding prices. The website takes those items and prices and gives us a value for the price index of each city.</p>
+
+<h2 id="objective">Objective</h2>
+<p>I decided to take the idea of this website and extend it by building a model to predict the cost of living index of any city in the world.</p>
+
+<p>In order train my model, I needed to get data. I used Python’s BeautifulSoup library to build a web scraper, to scrape 320 individual city pages from Expatistan’s website. I extracted the item names and item prices from each page and loaded the data into a Pandas data frame.</p>
+
+<p>I cleaned up the data and built my model. I used scikit-learn to perform a linear regression to calculate the coefficients for my model. Here are the results of my model.</p>
+
+<p><img src="/assets/img/2019-05-May/2019-05-15-How-Expensive-is-Your-City/all_features.png" alt="All Features Model Results" width="650px" /></p>
+
+<p>I reverse engineered the website’s model. I was able to perfectly predict a city’s price index!</p>
+
+<p>However, my goal was to be able to use this model on all cities, not only the cities included on the website. The problem with this is that I need 50 prices of all sorts of items from in categories from food, housing, clothing, transportation, health, and entertainment. For some of these items would be nearly impossible to get their prices. There is no reliable to place to find the price of <strong>1 pair of men’s leather business shoes</strong> or <strong>Short visit to private Doctor</strong>. I went item-by-item and kept only the items for which I could easily find their prices.</p>
+
+<p>I was left with only six items: gasoline, rental housing, fast food, public transportation, internet, and automobiles. I had to build a new model with the combination of these items. I also created a new feature called “region” that was based on the location of the city because I thought location would affect a city’s price index.</p>
+
+<p>I was skeptical whether a new model using only seven items would be very predictive. I noticed that rent was highly correlated to price index and I built a test model using only this single feature. It turns out that rent by itself is highly predictive of price index! From here, I added the price of fast food, the price of a monthly bus pass, and the region in which the city was located as my final model.</p>
+
+<p>Here are the results of my final model:
+<img src="/assets/img/2019-05-May/2019-05-15-How-Expensive-is-Your-City/final_predictions.png" alt="Final Model" width="650px" /></p>
+
+<h2 id="chicago-vs-south-bend">Chicago vs South Bend</h2>
+<p>Here’s an example of the model in action. I’ll calculate the price indices for Chicago and compare it to South Bend.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># chicago
+</span>
+<span class="n">Intercept</span> <span class="o">=</span> <span class="mf">12.76</span>
+<span class="n">Rent</span> <span class="o">=</span> <span class="mi">2000</span> <span class="o">*</span> <span class="mf">0.03</span>
+<span class="n">Bus_ticket</span> <span class="o">=</span> <span class="mi">105</span> <span class="o">*</span> <span class="mf">0.42</span>
+<span class="n">Fast_Food</span> <span class="o">=</span> <span class="mi">8</span> <span class="o">*</span> <span class="mf">6.57</span>
+<span class="n">Region</span> <span class="o">=</span> <span class="mf">14.43</span> <span class="o">*</span> <span class="mi">1</span>
+<span class="n">cost_chi</span> <span class="o">=</span> <span class="n">Intercept</span> <span class="o">+</span> <span class="n">Rent</span> <span class="o">+</span> <span class="n">Bus_ticket</span> <span class="o">+</span> <span class="n">Fast_Food</span> <span class="o">+</span> <span class="n">Region</span>
+<span class="n">cost_chi</span> <span class="o">=</span> <span class="mi">184</span>
+
+<span class="c"># south bend
+</span>
+<span class="n">Intercept_sb</span> <span class="o">=</span> <span class="mf">12.76</span>
+<span class="n">Rent_sb</span> <span class="o">=</span> <span class="mi">900</span> <span class="o">*</span> <span class="mf">0.03</span>
+<span class="n">Bus_ticket_sb</span> <span class="o">=</span> <span class="mi">36</span> <span class="o">*</span> <span class="mf">0.42</span>
+<span class="n">Fast_Food_sb</span> <span class="o">=</span> <span class="mi">6</span> <span class="o">*</span> <span class="mf">6.57</span>
+<span class="n">Region_sb</span> <span class="o">=</span> <span class="mf">14.43</span> <span class="o">*</span> <span class="mi">1</span>
+<span class="n">cost_sb</span> <span class="o">=</span> <span class="n">Intercept_sb</span> <span class="o">+</span> <span class="n">Rent_sb</span> <span class="o">+</span> <span class="n">Bus_ticket_sb</span> <span class="o">+</span> <span class="n">Fast_Food_sb</span> <span class="o">+</span> <span class="n">Region_sb</span>
+<span class="n">cost_sb</span> <span class="o">=</span> <span class="mi">109</span>
+
+<span class="n">cost_chi</span> <span class="o">/</span> <span class="n">cost_sb</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">=</span> <span class="mf">0.688</span></code></pre></figure>
+
+<p>My model calculates that Chicago’s cost of living is about 69% more expensive than South Bend’s.</p>
+
+<p>The code for the project can be found on my <a href="https://github.com/ericchan24/price_indices" target="_blank">GitHub</a>.</p>
+
+<p>Here’s a link to some <a href="https://price-indices.herokuapp.com/" target="_blank">visualizations</a> that I made for this project.</p>
+
+</div>
+
+<!-- <div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>16 May 2019 &raquo;</span> <a href="/classification/support%20vector%20machines/2019/05/16/Zion-National-Park-Should-Be-a-UNESCO-World-Heritage-Site/">Zion National Park Should be a UNESCO World Heritage Site</a>
+    </li>
+    
+    <li>
+      <span>15 May 2019 &raquo;</span> <a href="/classification/random%20forest/2019/05/15/Classifying-Animals-Using-Machine-Learning/">Classifying Animals Using Machine Learning</a>
+    </li>
+    
+  </ul>
+</div> -->
+
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+
+  <p>
+    © Eric Chan, 2019 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

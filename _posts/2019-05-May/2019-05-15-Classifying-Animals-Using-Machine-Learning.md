@@ -3,7 +3,7 @@ title: Classifying Animals Using Machine Learning
 layout: post
 categories:
 - classification
-- random forrest
+- random forest
 ---
 <head>
 <style>
@@ -31,7 +31,7 @@ tr.dark {
 </head>
 
 ## Introduction
-![Mini Highland Cow](\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\mini_highland_cow.png){:width='650px'}
+![Mini Highland Cow](\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\mini_highland_cow.png){:width='650px'}
 
 This is a mini highland cow. From the image, we see that it has hair, a tail,
 and four legs. Some other things that we know about this animal is that it has
@@ -46,13 +46,13 @@ model that maps from the features of an animal to its class.
 The Data
 I used a data set from the [UCI Machine Learning repository](http://archive.ics.uci.edu/ml/datasets/zoo){:target="_blank"}.
 
-![Animal Classes](\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\animal_classes.png){:width='650px'}
+![Animal Classes](\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\animal_classes.png){:width='650px'}
 
 The animals are divided into seven classes. A particularly interesting class is
 the non-insect invertebrate class. It includes are a variety of animals from
 worms, arachnids, crustaceans, mollusks, and others.
 
-![Number of Animals by Class](\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\number_of_animals_by_class.PNG){:width='650px'}
+![Number of Animals by Class](\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\number_of_animals_by_class.PNG){:width='650px'}
 
 There are 101 animals in the data set. There were only five reptiles and four
 amphibians. This is important to keep in mind during the splitting of the data.
@@ -66,7 +66,7 @@ There are many algorithms to choose for classification. There is a rule of thumb
 
 I built four models and compared the results.
 
-![Four Model Accuracy](\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\four_model_accuracy_barh.PNG){:width='650px'}
+![Four Model Accuracy](\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\four_model_accuracy_barh.PNG){:width='650px'}
 
 These models were built without any tuning of hyperparameters. Random forest
 and decision tree were producing high accuracy and moved forward with these
@@ -75,7 +75,7 @@ algorithms.
 I used randomized grid search to tune the hyperparameters for a decision tree
 and random forest model. Random forest produced the best results.
 
-![Confusion Matrix Random Forest](\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\confusion_matrix_random_forest.PNG){:width='650px'}
+![Confusion Matrix Random Forest](\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\confusion_matrix_random_forest.PNG){:width='650px'}
 
 The random forest model correctly classified every observation in the test set.
 

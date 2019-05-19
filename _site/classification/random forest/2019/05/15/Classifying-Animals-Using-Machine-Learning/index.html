@@ -9,7 +9,7 @@
   <title>Eric Chan - Classifying Animals Using Machine Learning</title>
   <meta name="author" content="Eric Chan" />
   <meta name="description" content="The blog of Eric Chan" />
-  <link rel="canonical" href="http://localhost:4000/classification/random%20forrest/2019/05/15/Classifying-Animals-Using-Machine-Learning/" />
+  <link rel="canonical" href="http://localhost:4000/classification/random%20forest/2019/05/15/Classifying-Animals-Using-Machine-Learning/" />
 
   <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
   <link rel="shortcut icon" href="/favicon.png">
@@ -144,7 +144,7 @@ tr.dark {
 </head>
 
 <h2 id="introduction">Introduction</h2>
-<p><img src="\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\mini_highland_cow.png" alt="Mini Highland Cow" width="650px" /></p>
+<p><img src="\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\mini_highland_cow.png" alt="Mini Highland Cow" width="650px" /></p>
 
 <p>This is a mini highland cow. From the image, we see that it has hair, a tail,
 and four legs. Some other things that we know about this animal is that it has
@@ -159,13 +159,13 @@ model that maps from the features of an animal to its class.</p>
 <p>The Data
 I used a data set from the <a href="http://archive.ics.uci.edu/ml/datasets/zoo" target="_blank">UCI Machine Learning repository</a>.</p>
 
-<p><img src="\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\animal_classes.png" alt="Animal Classes" width="650px" /></p>
+<p><img src="\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\animal_classes.png" alt="Animal Classes" width="650px" /></p>
 
 <p>The animals are divided into seven classes. A particularly interesting class is
 the non-insect invertebrate class. It includes are a variety of animals from
 worms, arachnids, crustaceans, mollusks, and others.</p>
 
-<p><img src="\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\number_of_animals_by_class.PNG" alt="Number of Animals by Class" width="650px" /></p>
+<p><img src="\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\number_of_animals_by_class.PNG" alt="Number of Animals by Class" width="650px" /></p>
 
 <p>There are 101 animals in the data set. There were only five reptiles and four
 amphibians. This is important to keep in mind during the splitting of the data.
@@ -179,7 +179,7 @@ I want at least one example of reptile and amphibian in my testing data.</p>
 
 <p>I built four models and compared the results.</p>
 
-<p><img src="\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\four_model_accuracy_barh.PNG" alt="Four Model Accuracy" width="650px" /></p>
+<p><img src="\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\four_model_accuracy_barh.PNG" alt="Four Model Accuracy" width="650px" /></p>
 
 <p>These models were built without any tuning of hyperparameters. Random forest
 and decision tree were producing high accuracy and moved forward with these
@@ -188,7 +188,7 @@ algorithms.</p>
 <p>I used randomized grid search to tune the hyperparameters for a decision tree
 and random forest model. Random forest produced the best results.</p>
 
-<p><img src="\assets\img\2019-05-May\2019-05-19-Classifying-Animals-Using-Machine-Learning\confusion_matrix_random_forest.PNG" alt="Confusion Matrix Random Forest" width="650px" /></p>
+<p><img src="\assets\img\2019-05-May\2019-05-15-Classifying-Animals-Using-Machine-Learning\confusion_matrix_random_forest.PNG" alt="Confusion Matrix Random Forest" width="650px" /></p>
 
 <p>The random forest model correctly classified every observation in the test set.</p>
 
@@ -208,6 +208,10 @@ random forest. The model was trained on 81 observations and tested on 20 observa
     
     <li>
       <span>16 May 2019 &raquo;</span> <a href="/classification/support%20vector%20machines/2019/05/16/Zion-National-Park-Should-Be-a-UNESCO-World-Heritage-Site/">Zion National Park Should be a UNESCO World Heritage Site</a>
+    </li>
+    
+    <li>
+      <span>14 May 2019 &raquo;</span> <a href="/linear%20regression/2019/05/14/How-Expensive-is-Your-City/">How Expensive is Your City?</a>
     </li>
     
   </ul>

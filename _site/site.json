@@ -7,9 +7,15 @@
 "url": "/classification/support%20vector%20machines/2019/05/16/Zion-National-Park-Should-Be-a-UNESCO-World-Heritage-Site/"},
 
 {"date": "Wed, 15 May 2019 00:00:00 -0500",
-"categories": ["classification","random forrest"],
+"categories": ["classification","random forest"],
 "tags": [],
 "title": "Classifying Animals Using Machine Learning",
-"url": "/classification/random%20forrest/2019/05/15/Classifying-Animals-Using-Machine-Learning/"},
+"url": "/classification/random%20forest/2019/05/15/Classifying-Animals-Using-Machine-Learning/"},
+
+{"date": "Tue, 14 May 2019 00:00:00 -0500",
+"categories": ["linear regression"],
+"tags": [],
+"title": "How Expensive is Your City?",
+"url": "/linear%20regression/2019/05/14/How-Expensive-is-Your-City/"},
 
 false]
