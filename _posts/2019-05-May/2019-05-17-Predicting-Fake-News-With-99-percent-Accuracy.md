@@ -63,4 +63,4 @@ Naive Bayes looks at the TF-IDF score for each article and uses those numbers to
 ## Results
 The classifier misclassified one out of 127 articles in the test set. It correctly classified all 27 fake news articles in the test set.
 
-This is a [Github](https://github.com/ericchan24/Fake-News-Classifier){:width="650px"} link with all the code used in this project.
+This is a [Github](https://github.com/ericchan24/Fake-News-Classifier){:target="_blank"} link with all the code used in this project.
