@@ -64,4 +64,4 @@ script call:
 I created an automated process to run daily that scrapes all Fangraphs articles,
 write them to a file, and send an email attachement with the articles.
 
-The code for the project can be found on my [Github](https://github.com/ericchan24/fangraphs_scrape){:target="_blank"}.
+The code for the project can be found on my [Github](https://github.com/ericchan24/keep_up_with_the_news){:target="_blank"}.
