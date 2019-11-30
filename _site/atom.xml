@@ -4,13 +4,78 @@
  <title>The blog of Eric Chan</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000"/>
- <updated>2019-05-19T07:41:02-05:00</updated>
+ <updated>2019-11-30T14:33:55-06:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Eric Chan</name>
    <email>eric.chan.24@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Automatically Scrape News Articles</title>
+   <link href="http://localhost:4000/automation/cron/email/web%20scraping/2019/11/30/Automatically-Scrape-News-Articles/"/>
+   <updated>2019-11-30T00:00:00-06:00</updated>
+   <id>http://localhost:4000/automation/cron/email/web%20scraping/2019/11/30/Automatically-Scrape-News-Articles</id>
+   <content type="html">&lt;h2 id=&quot;introduction-and-goal&quot;&gt;Introduction and Goal&lt;/h2&gt;
+&lt;p&gt;I try to keep up with all the articles on
+&lt;a href=&quot;https://fangraphs.com&quot; target=&quot;_blank&quot;&gt;Fangraphs&lt;/a&gt; every day. But some days,
+I don’t have time to read read everything.&lt;/p&gt;
+
+&lt;p&gt;For these days, I created an automated script to scrape all the articles on
+Fangraphs and send an email attachment containing the articles.&lt;/p&gt;
+
+&lt;h2 id=&quot;tools-used&quot;&gt;Tools used&lt;/h2&gt;
+&lt;p&gt;Cron and BeautifulSoup&lt;/p&gt;
+
+&lt;h2 id=&quot;building-the-scraper&quot;&gt;Building the scraper&lt;/h2&gt;
+&lt;p&gt;To scrape the articles, I used the package BeautifulSoup.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2019-11-November/30/beautiful_soup.jpg&quot; alt=&quot;Thumbnails&quot; width=&quot;250px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This is the workflow:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Find all the recent Fangraphs article links&lt;/li&gt;
+  &lt;li&gt;Parse the article dates to find today’s articles&lt;/li&gt;
+  &lt;li&gt;Write the articles to a text file&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;One of the challenges with parsing and writing the articles was handling
+non-utf-8 symbols in the articles. To handle this, I used the string function&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;to get rid of all the extra symbols.&lt;/p&gt;
+
+&lt;h2 id=&quot;sending-the-email&quot;&gt;Sending the email&lt;/h2&gt;
+&lt;p&gt;To send the email, I used the email library.&lt;/p&gt;
+
+&lt;p&gt;I had to enable &lt;a href=&quot;https://support.google.com/accounts/answer/6010255?hl=en&quot; target=&quot;_blank&quot;&gt;Less secure app access&lt;/a&gt;
+on my gmail account for the script to work.&lt;/p&gt;
+
+&lt;h2 id=&quot;automating-the-script&quot;&gt;Automating the script&lt;/h2&gt;
+&lt;p&gt;I used the software utility &lt;a href=&quot;https://en.wikipedia.org/wiki/Cron&quot; target=&quot;_blank&quot;&gt;cron&lt;/a&gt;
+to run the script daily.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# scrape fangraphs articles daily at 11 pm&lt;/span&gt;
+0 23 &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.bash_profile&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; /Users/eric/anaconda/envs/python3.6/bin/python /Users/eric/ds/fangraphs/scripts/c_run_all.py &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; /Users/eric/ds/fangraphs/scripts/fangraphs.log 2&amp;gt;&amp;amp;1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I since I used environment variables and a conda virtual enviornment in the
+script, I had to prepend the following the following commands to my Python
+script call:&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# activate enviornment variables&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.bash_profile
+&lt;span class=&quot;c&quot;&gt;# use a conda virtual environment to run the script&lt;/span&gt;
+/Users/eric/anaconda/envs/python3.6/bin/python
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;I created an automated process to run daily that scrapes all Fangraphs articles,
+write them to a file, and send an email attachement with the articles.&lt;/p&gt;
+
+&lt;p&gt;The code for the project can be found on my &lt;a href=&quot;https://github.com/ericchan24/fangraphs_scrape&quot; target=&quot;_blank&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>What Are People Saying About Airlines on Twitter?</title>
