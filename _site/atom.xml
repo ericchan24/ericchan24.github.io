@@ -4,7 +4,7 @@
  <title>The blog of Eric Chan</title>
  <link href="http://localhost:4000/atom.xml" rel="self"/>
  <link href="http://localhost:4000"/>
- <updated>2019-11-30T14:33:55-06:00</updated>
+ <updated>2020-05-24T10:05:22-05:00</updated>
  <id>http://localhost:4000</id>
  <author>
    <name>Eric Chan</name>
@@ -13,10 +13,198 @@
 
  
  <entry>
-   <title>Automatically Scrape News Articles</title>
-   <link href="http://localhost:4000/automation/cron/email/web%20scraping/2019/11/30/Automatically-Scrape-News-Articles/"/>
+   <title>Automate your tasks with AWS Lambda</title>
+   <link href="http://localhost:4000/automation/aws/lambda/web%20scraping/2020/05/20/Automate-Your-Tasks-With-AWS-Lambda/"/>
+   <updated>2020-05-20T00:00:00-05:00</updated>
+   <id>http://localhost:4000/automation/aws/lambda/web%20scraping/2020/05/20/Automate-Your-Tasks-With-AWS-Lambda</id>
+   <content type="html">&lt;h2 id=&quot;introduction-and-goal&quot;&gt;Introduction and Goal&lt;/h2&gt;
+&lt;p&gt;In a previous post, I &lt;a href=&quot;https://ericchan24.github.io/automation/cron/email/web%20scraping/2019/11/30/Keep-Up-With-the-News-Using-Python/&quot; target=&quot;_blank&quot;&gt;kept up with the news using Python&lt;/a&gt;.
+I utilized Cron on my local machine to scheudle and run a Python script to
+scrape and grab all Fangraphs articles for the day.&lt;/p&gt;
+
+&lt;p&gt;This works well when my local machine is turned on and available to run the
+script. If not, the script fails to run and I miss out on the latest
+baseball analysis from Fangraphs.&lt;/p&gt;
+
+&lt;p&gt;A better way to do this is with AWS Lambda. Lambda is a serverless cloud
+computing service and is perfect for this task. To get this running, I’ll have
+to write some code that will be run by Lambda and stored in an S3 bucket.&lt;/p&gt;
+
+&lt;h2 id=&quot;tools-used&quot;&gt;Tools used&lt;/h2&gt;
+&lt;p&gt;AWS lambda&lt;/p&gt;
+
+&lt;h2 id=&quot;create-a-s3-bucket&quot;&gt;Create a S3 Bucket&lt;/h2&gt;
+&lt;p&gt;Create a S3 bucket to store the articles. From the main AWS page, click on
+the Services tab on the top of the screen. Type S3 in the search bar and click
+on S3.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/s3_photo.png&quot; alt=&quot;S3&quot; width=&quot;550px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Create a bucket. I named my bucket fangraphs.&lt;/p&gt;
+
+&lt;h2 id=&quot;initialize-lambda-function&quot;&gt;Initialize Lambda Function&lt;/h2&gt;
+&lt;p&gt;From AWS, click on the Services dropdown and type in Lambda.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/lambda_photo.png&quot; alt=&quot;Lambda&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Click Create Function.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/create_function.png&quot; alt=&quot;Create Function&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Select Author from scratch and enter a Function name. Choose your programming
+language and click Create Function.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/create_function1.png&quot; alt=&quot;Create Function1&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;write-lambda-function-code&quot;&gt;Write Lambda Function code&lt;/h2&gt;
+&lt;p&gt;Write your lambda function code. Name your script lambda_function.py containing
+a function named lambda_handler().&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# lambda_function.py&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;lambda_handler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# write code here&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The code that I wrote grabs all Fangraphs articles for the day, converts them
+to a text object and saves it to my S3 bucket. This is a link to the
+&lt;a href=&quot;https://github.com/ericchan24/automate_your_tasks_with_aws_lambda/blob/master/scripts/lambda_function.py&quot; target=&quot;_blank&quot;&gt;code&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Here’s one tricky part of the code. You will need your AWS credentials to access
+your S3 bucket. The code below shows how I did that.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;region&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'AWS_REGION'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;access_key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'AWS_ACCESS_KEY'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;secret_key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'AWS_SECRET_KEY'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# access your S3 bucket&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;s3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;boto3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resource&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;'s3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;region_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;region&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;aws_access_key_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;access_key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;aws_secret_access_key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;secret_key&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# place the articles in the S3 bucket&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;s3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'fangraphs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Body&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;These are the &lt;a href=&quot;https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html&quot; target=&quot;_blank&quot;&gt;environment variables&lt;/a&gt;
+that Lambda can access.&lt;/p&gt;
+
+&lt;h2 id=&quot;install-packages-and-create-a-zip-file&quot;&gt;Install Packages and Create a Zip File&lt;/h2&gt;
+&lt;p&gt;If your code uses packages outside of the base Python installation, you will
+have to create a zip file containing those packages and upload them to Lambda.
+Here are the &lt;a href=&quot;https://gist.github.com/gene1wood/4a052f39490fae00e0c3&quot; target=&quot;_blank&quot;&gt;packages&lt;/a&gt;
+available in AWS Lambda environments.&lt;/p&gt;
+
+&lt;p&gt;In addition to the Python base installation, my code used BeautifulSoup, lxml,
+and requests.&lt;/p&gt;
+
+&lt;p&gt;Make sure these files are installed in the same directory as your code.
+To do this, navigate to the directory where your code is and type the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install beautifulsoup4 &lt;span class=&quot;nt&quot;&gt;--target&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+pip install lxml &lt;span class=&quot;nt&quot;&gt;--target&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+pip install requests &lt;span class=&quot;nt&quot;&gt;--target&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When you have all your packages and code ready to go, zip all these files
+together. Navigate to the directory where your lambda_function.py file is
+located and type the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;zip &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; ../lambda_function.zip &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Saving the zip file one level up from the lambda_function.py file worked for me.&lt;/p&gt;
+
+&lt;h2 id=&quot;upload-zip-file&quot;&gt;Upload Zip File&lt;/h2&gt;
+&lt;p&gt;Back on the AWS Lambda Function screen, navigate to the Function code section.
+Under the Code entry type dropdown, select Upload a .zip file and choose your
+zip file.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/upload_zip.png&quot; alt=&quot;Upload Zip&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;set-permissions&quot;&gt;Set Permissions&lt;/h2&gt;
+&lt;p&gt;Permission needs to be granted to your Lambda Function to allow access to your
+S3 bucket. Click the Services dropdown and type IAM. Click on IAM Manage access
+to AWS resources.&lt;/p&gt;
+
+&lt;p&gt;On the IAM Dashboard, under Access Management, select Role. Click the Create
+Role buttom.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/IAM.png&quot; alt=&quot;IAM&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On Create role page 1, select Lambda and click on the Next: Permissions
+button on the bottom of the page.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/IAM1.png&quot; alt=&quot;IAM1&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On Create role page 2, type S3 in search box and select AmazonS3FullAccess.
+Click the Next: Tags button on the bottom of the page.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/IAM2.png&quot; alt=&quot;IAM2&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On Create role page 3, click Next: Review&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/IAM3.png&quot; alt=&quot;IAM3&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On Create role page 4, Type in a Role name and description. Click the
+Create role button on the bottom of the screen.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/IAM4.png&quot; alt=&quot;IAM4&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Go back to your Lambda Function and selec thte Permissions Tab. Under Execution
+role, click the Edit button.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/IAM5.png&quot; alt=&quot;IAM5&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Increase your Timeout. Under Existing role, select the role that you just
+created. Click the Save button.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/IAM6.png&quot; alt=&quot;IAM6&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Click the Permissions tab and verify that the Execution role has been set
+correctly.
+&lt;img src=&quot;/assets/img/2020-05-May/20/IAM7.png&quot; alt=&quot;IAM7&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;test-your-code&quot;&gt;Test Your Code&lt;/h2&gt;
+&lt;p&gt;After setting up permisisons, test your code. Click the Test button in the top
+right of the Lambda Function dashboard.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/code_test.png&quot; alt=&quot;Code Test&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;AWS Lambda will tell you whether or not your test succeeded with execution logs
+for tracing your runs.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/code_test1.png&quot; alt=&quot;Code Test1&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;My code is writing a file to my S3 bucket, so I navigated to the bucket to
+verify that a file was written there.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/s3_photo1.png&quot; alt=&quot;S3 Photo1&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;schedule-your-code-to-execute&quot;&gt;Schedule Your Code to Execute&lt;/h2&gt;
+&lt;p&gt;On the Lambda Function dashboard, under CloudWatch Events/EventBridge click Add
+Trigger.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/cloudwatch.png&quot; alt=&quot;CloudWatch&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On the Add trigger menu, select CloudWatch Events/EventBridge and Create a
+new rule. I named my rule FangraphsDaily, gave it a description and used a Cron
+expression for my daily run. Click the Enable trigger checkbox.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/2020-05-May/20/cloudwatch1.png&quot; alt=&quot;CloudWatch&quot; width=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;auomation-complete&quot;&gt;Auomation Complete!&lt;/h2&gt;
+&lt;p&gt;You have set up a Lambda Function to automatically run a script and save the
+results to a S3 bucket. Instead of running and scheduling this job locally,
+take advantage of AWS Lambda to automate your tasks!&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Keep up with the news using Python</title>
+   <link href="http://localhost:4000/automation/cron/email/web%20scraping/2019/11/30/Keep-Up-With-the-News-Using-Python/"/>
    <updated>2019-11-30T00:00:00-06:00</updated>
-   <id>http://localhost:4000/automation/cron/email/web%20scraping/2019/11/30/Automatically-Scrape-News-Articles</id>
+   <id>http://localhost:4000/automation/cron/email/web%20scraping/2019/11/30/Keep-Up-With-the-News-Using-Python</id>
    <content type="html">&lt;h2 id=&quot;introduction-and-goal&quot;&gt;Introduction and Goal&lt;/h2&gt;
 &lt;p&gt;I try to keep up with all the articles on
 &lt;a href=&quot;https://fangraphs.com&quot; target=&quot;_blank&quot;&gt;Fangraphs&lt;/a&gt; every day. But some days,
@@ -73,7 +261,7 @@ script call:&lt;/p&gt;
 &lt;p&gt;I created an automated process to run daily that scrapes all Fangraphs articles,
 write them to a file, and send an email attachement with the articles.&lt;/p&gt;
 
-&lt;p&gt;The code for the project can be found on my &lt;a href=&quot;https://github.com/ericchan24/fangraphs_scrape&quot; target=&quot;_blank&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The code for the project can be found on my &lt;a href=&quot;https://github.com/ericchan24/keep_up_with_the_news&quot; target=&quot;_blank&quot;&gt;Github&lt;/a&gt;.&lt;/p&gt;
 </content>
  </entry>
  

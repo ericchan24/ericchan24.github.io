@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eric Chan - Automate your tasks with AWS Lambda</title>
+  <meta name="author" content="Eric Chan" />
+  <meta name="description" content="The blog of Eric Chan" />
+  <link rel="canonical" href="http://localhost:4000/automation/aws/lambda/web%20scraping/2020/05/20/Automate-Your-Tasks-With-AWS-Lambda/" />
+
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="Eric Chan" href="http://localhost:4000/atom.xml" />
+
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+
+    <div class="four columns sidebar">
+      <nav>
+  <a href="/">
+    
+    <img src="/profile.jpg" width="150" id="profile" alt="profile pic"/>
+    
+  </a>
+  <h2>Eric Chan
+  <br>
+  <!-- <p><font size="4" face="arial" color="gray">
+      Data Scientist</font> -->
+  <h5>eric.chan.24@gmail.com 
+  <div id="bio">
+  </div>
+  <div id="social">
+    Follow me:
+<div id="stalker">
+  
+  <a title="ericchan24 on Github" href="https://github.com/ericchan24">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <a title="Eric Chan on LinkedIn" href="https://www.linkedin.com/in/ericchan24/">
+    <i class="fa fa-linkedin-square"></i>
+  </a>
+  
+
+  
+
+  
+
+  
+</div>
+
+  </div>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <div class="navigation">
+        <!-- Belongs at: /_includes/navigation.html -->
+
+<!-- This finds the current page so it can be highlighted. -->
+
+
+
+
+    
+        
+    
+
+
+<!-- Then we build the nav bar. -->
+<nav>
+    <ul>
+    
+        
+            
+        
+        
+        
+        <li class="current"><a href="/">Home</a></li>
+        
+    
+    </ul>
+</nav>
+
+      </div>
+
+
+      <p class="meta">
+  May 20, 2020
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Automate your tasks with AWS Lambda</h1>
+
+<div id="post">
+  <h2 id="introduction-and-goal">Introduction and Goal</h2>
+<p>In a previous post, I <a href="https://ericchan24.github.io/automation/cron/email/web%20scraping/2019/11/30/Keep-Up-With-the-News-Using-Python/" target="_blank">kept up with the news using Python</a>.
+I utilized Cron on my local machine to scheudle and run a Python script to
+scrape and grab all Fangraphs articles for the day.</p>
+
+<p>This works well when my local machine is turned on and available to run the
+script. If not, the script fails to run and I miss out on the latest
+baseball analysis from Fangraphs.</p>
+
+<p>A better way to do this is with AWS Lambda. Lambda is a serverless cloud
+computing service and is perfect for this task. To get this running, I’ll have
+to write some code that will be run by Lambda and stored in an S3 bucket.</p>
+
+<h2 id="tools-used">Tools used</h2>
+<p>AWS lambda</p>
+
+<h2 id="create-a-s3-bucket">Create a S3 Bucket</h2>
+<p>Create a S3 bucket to store the articles. From the main AWS page, click on
+the Services tab on the top of the screen. Type S3 in the search bar and click
+on S3.</p>
+
+<p><img src="/assets/img/2020-05-May/20/s3_photo.png" alt="S3" width="550px" /></p>
+
+<p>Create a bucket. I named my bucket fangraphs.</p>
+
+<h2 id="initialize-lambda-function">Initialize Lambda Function</h2>
+<p>From AWS, click on the Services dropdown and type in Lambda.</p>
+
+<p><img src="/assets/img/2020-05-May/20/lambda_photo.png" alt="Lambda" width="500px" /></p>
+
+<p>Click Create Function.</p>
+
+<p><img src="/assets/img/2020-05-May/20/create_function.png" alt="Create Function" width="500px" /></p>
+
+<p>Select Author from scratch and enter a Function name. Choose your programming
+language and click Create Function.</p>
+
+<p><img src="/assets/img/2020-05-May/20/create_function1.png" alt="Create Function1" width="500px" /></p>
+
+<h2 id="write-lambda-function-code">Write Lambda Function code</h2>
+<p>Write your lambda function code. Name your script lambda_function.py containing
+a function named lambda_handler().</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># lambda_function.py</span>
+<span class="k">def</span> <span class="nf">lambda_handler</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="c"># write code here</span>
+</code></pre></div></div>
+<p>The code that I wrote grabs all Fangraphs articles for the day, converts them
+to a text object and saves it to my S3 bucket. This is a link to the
+<a href="https://github.com/ericchan24/automate_your_tasks_with_aws_lambda/blob/master/scripts/lambda_function.py" target="_blank">code</a>.</p>
+
+<p>Here’s one tricky part of the code. You will need your AWS credentials to access
+your S3 bucket. The code below shows how I did that.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">region</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'AWS_REGION'</span><span class="p">)</span>
+<span class="n">access_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'AWS_ACCESS_KEY'</span><span class="p">)</span>
+<span class="n">secret_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'AWS_SECRET_KEY'</span><span class="p">)</span>
+
+<span class="c"># access your S3 bucket</span>
+<span class="n">s3</span> <span class="o">=</span> <span class="n">boto3</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span>
+    <span class="s">'s3'</span><span class="p">,</span>
+    <span class="n">region_name</span> <span class="o">=</span> <span class="n">region</span><span class="p">,</span>
+    <span class="n">aws_access_key_id</span> <span class="o">=</span> <span class="n">access_key</span><span class="p">,</span>
+    <span class="n">aws_secret_access_key</span> <span class="o">=</span> <span class="n">secret_key</span>
+<span class="p">)</span>
+<span class="c"># place the articles in the S3 bucket</span>
+<span class="n">s3</span><span class="o">.</span><span class="n">Object</span><span class="p">(</span><span class="s">'fangraphs'</span><span class="p">,</span> <span class="n">f_name</span><span class="p">)</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">Body</span> <span class="o">=</span> <span class="n">content</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>These are the <a href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html" target="_blank">environment variables</a>
+that Lambda can access.</p>
+
+<h2 id="install-packages-and-create-a-zip-file">Install Packages and Create a Zip File</h2>
+<p>If your code uses packages outside of the base Python installation, you will
+have to create a zip file containing those packages and upload them to Lambda.
+Here are the <a href="https://gist.github.com/gene1wood/4a052f39490fae00e0c3" target="_blank">packages</a>
+available in AWS Lambda environments.</p>
+
+<p>In addition to the Python base installation, my code used BeautifulSoup, lxml,
+and requests.</p>
+
+<p>Make sure these files are installed in the same directory as your code.
+To do this, navigate to the directory where your code is and type the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install beautifulsoup4 <span class="nt">--target</span> <span class="nb">.</span>
+pip install lxml <span class="nt">--target</span> <span class="nb">.</span>
+pip install requests <span class="nt">--target</span> <span class="nb">.</span>
+</code></pre></div></div>
+
+<p>When you have all your packages and code ready to go, zip all these files
+together. Navigate to the directory where your lambda_function.py file is
+located and type the following:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zip <span class="nt">-r</span> ../lambda_function.zip <span class="k">*</span>
+</code></pre></div></div>
+
+<p>Saving the zip file one level up from the lambda_function.py file worked for me.</p>
+
+<h2 id="upload-zip-file">Upload Zip File</h2>
+<p>Back on the AWS Lambda Function screen, navigate to the Function code section.
+Under the Code entry type dropdown, select Upload a .zip file and choose your
+zip file.</p>
+
+<p><img src="/assets/img/2020-05-May/20/upload_zip.png" alt="Upload Zip" width="500px" /></p>
+
+<h2 id="set-permissions">Set Permissions</h2>
+<p>Permission needs to be granted to your Lambda Function to allow access to your
+S3 bucket. Click the Services dropdown and type IAM. Click on IAM Manage access
+to AWS resources.</p>
+
+<p>On the IAM Dashboard, under Access Management, select Role. Click the Create
+Role buttom.</p>
+
+<p><img src="/assets/img/2020-05-May/20/IAM.png" alt="IAM" width="500px" /></p>
+
+<p>On Create role page 1, select Lambda and click on the Next: Permissions
+button on the bottom of the page.</p>
+
+<p><img src="/assets/img/2020-05-May/20/IAM1.png" alt="IAM1" width="500px" /></p>
+
+<p>On Create role page 2, type S3 in search box and select AmazonS3FullAccess.
+Click the Next: Tags button on the bottom of the page.</p>
+
+<p><img src="/assets/img/2020-05-May/20/IAM2.png" alt="IAM2" width="500px" /></p>
+
+<p>On Create role page 3, click Next: Review</p>
+
+<p><img src="/assets/img/2020-05-May/20/IAM3.png" alt="IAM3" width="500px" /></p>
+
+<p>On Create role page 4, Type in a Role name and description. Click the
+Create role button on the bottom of the screen.</p>
+
+<p><img src="/assets/img/2020-05-May/20/IAM4.png" alt="IAM4" width="500px" /></p>
+
+<p>Go back to your Lambda Function and selec thte Permissions Tab. Under Execution
+role, click the Edit button.</p>
+
+<p><img src="/assets/img/2020-05-May/20/IAM5.png" alt="IAM5" width="500px" /></p>
+
+<p>Increase your Timeout. Under Existing role, select the role that you just
+created. Click the Save button.</p>
+
+<p><img src="/assets/img/2020-05-May/20/IAM6.png" alt="IAM6" width="500px" /></p>
+
+<p>Click the Permissions tab and verify that the Execution role has been set
+correctly.
+<img src="/assets/img/2020-05-May/20/IAM7.png" alt="IAM7" width="500px" /></p>
+
+<h2 id="test-your-code">Test Your Code</h2>
+<p>After setting up permisisons, test your code. Click the Test button in the top
+right of the Lambda Function dashboard.</p>
+
+<p><img src="/assets/img/2020-05-May/20/code_test.png" alt="Code Test" width="500px" /></p>
+
+<p>AWS Lambda will tell you whether or not your test succeeded with execution logs
+for tracing your runs.</p>
+
+<p><img src="/assets/img/2020-05-May/20/code_test1.png" alt="Code Test1" width="500px" /></p>
+
+<p>My code is writing a file to my S3 bucket, so I navigated to the bucket to
+verify that a file was written there.</p>
+
+<p><img src="/assets/img/2020-05-May/20/s3_photo1.png" alt="S3 Photo1" width="500px" /></p>
+
+<h2 id="schedule-your-code-to-execute">Schedule Your Code to Execute</h2>
+<p>On the Lambda Function dashboard, under CloudWatch Events/EventBridge click Add
+Trigger.</p>
+
+<p><img src="/assets/img/2020-05-May/20/cloudwatch.png" alt="CloudWatch" width="500px" /></p>
+
+<p>On the Add trigger menu, select CloudWatch Events/EventBridge and Create a
+new rule. I named my rule FangraphsDaily, gave it a description and used a Cron
+expression for my daily run. Click the Enable trigger checkbox.</p>
+
+<p><img src="/assets/img/2020-05-May/20/cloudwatch1.png" alt="CloudWatch" width="500px" /></p>
+
+<h2 id="auomation-complete">Auomation Complete!</h2>
+<p>You have set up a Lambda Function to automatically run a script and save the
+results to a S3 bucket. Instead of running and scheduling this job locally,
+take advantage of AWS Lambda to automate your tasks!</p>
+
+</div>
+
+<!-- <div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>30 Nov 2019 &raquo;</span> <a href="/automation/cron/email/web%20scraping/2019/11/30/Keep-Up-With-the-News-Using-Python/">Keep up with the news using Python</a>
+    </li>
+    
+    <li>
+      <span>18 May 2019 &raquo;</span> <a href="/topic%20modeling/2019/05/18/What-Are-People-Saying-About-Airlines-on-Twitter/">What Are People Saying About Airlines on Twitter?</a>
+    </li>
+    
+    <li>
+      <span>17 May 2019 &raquo;</span> <a href="/classification/naive%20bayes/2019/05/17/Predicting-Fake-News-With-99-percent-Accuracy/">Predicting Fake News With 99 Percent Accuracy</a>
+    </li>
+    
+  </ul>
+</div> -->
+
+
+      <div class="footer">
+        <div class="disclaimer">
+  
+
+  <p>
+    © Eric Chan, 2020 &mdash; built with <a href="http://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/swanson/lagom">Lagom theme</a>
+  </p>
+</div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>
